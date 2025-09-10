@@ -1,0 +1,80 @@
+#!/system/bin/sh
+sleep 2
+ui_print "Author:"
+ui_print "Telegram: @RiProG | Channel: @RiOpSo | Group: @RiOpSoDisc"
+sleep 2
+ui_print "Extracting module files"
+architecture=$(getprop ro.product.cpu.abi)
+if [ -f "$MODPATH/system/bin/RPB" ]; then
+	ui_print "Default binary detected. Skipping architecture detection."
+else
+	ui_print "Detected architecture: $architecture"
+	case "$architecture" in
+	armeabi-v7a | armv8l)
+		ui_print "Architecture $architecture is supported."
+		ui_print "Installation continues."
+		cp "$MODPATH"/system/bin/RPB_arm "$MODPATH"/system/bin/RPB
+		;;
+	arm64-v8a)
+		ui_print "Architecture $architecture is supported."
+		ui_print "Installation continues."
+		cp "$MODPATH"/system/bin/RPB_arm64 "$MODPATH"/system/bin/RPB
+		;;
+	*)
+		ui_print "Architecture $architecture is not supported."
+		ui_print "Installation aborted."
+		exit 1
+		;;
+	esac
+fi
+chmod +x "$MODPATH"/system/bin/RPB
+rm -f "$MODPATH"/system/bin/RPB_arm
+rm -f "$MODPATH"/system/bin/RPB_arm64
+rm -rf "$MODPATH"/source
+exec 3>&1 4>&2
+exec >/dev/null 2>&1
+if [ -z "$AXERON" ]; then
+	applist=/storage/emulated/0/Android/RPB_applist.txt
+	echo "debug.riprog.RPB=standard" >"$MODPATH"/system.prop
+	pm disable-user --user 0 com.android.vending
+	if ! pm list packages | grep -q com.riprog.toast; then
+		pm install "$MODPATH"/toast.apk >/dev/null 2>&1
+		if ! pm list packages | grep -q com.riprog.toast; then
+			cp "$MODPATH"/toast.apk /data/local/tmp >/dev/null 2>&1
+			pm install /data/local/tmp/toast.apk >/dev/null 2>&1
+			rm /data/local/tmp/toast.apk
+		fi
+		rm "$MODPATH"/toast.apk
+	fi
+	pm enable --user 0 com.android.vending
+else
+	applist=/data/local/tmp/AxManager/bin/added_apps.txt
+	echo "debug.riprog.RPB=axeron" >"$MODPATH"/system.prop
+	rm "$MODPATH/uninstall.sh"
+fi
+exec 1>&3 2>&4
+if [ ! -f "$applist" ]; then
+	ui_print "Adding template gamelist to applist"
+	counter=1
+	package_list=$(pm list packages | cut -f 2 -d :)
+	app_list=$(cat "$MODPATH/gamelist.txt")
+	echo "$app_list" | while IFS= read -r applist_line; do
+		line=$(echo "$applist_line" | grep -v " ")
+		if echo "$package_list" | grep -q "$line"; then
+			ui_print "  $counter. $line"
+			counter=$((counter + 1))
+		else
+			sed -i "/$line/d" "$MODPATH/gamelist.txt"
+		fi
+	done
+	cp "$MODPATH/gamelist.txt" "$applist"
+else
+	ui_print "App list already exists. Skipping update."
+fi
+rm "$MODPATH/gamelist.txt"
+if [ -z "$AXERON" ]; then
+	ui_print "App list saved to $applist"
+	ui_print "Edit applist manually if you want to add or remove apps."
+else
+	ui_print "You can add or remove apps in AxManager applist"
+fi
