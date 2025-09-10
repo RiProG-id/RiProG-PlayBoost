@@ -1,6 +1,6 @@
 # RiProG-PlayBoost
 
-![RiProG-PlayBoost Banner](banner.png)
+![RiProG-PlayBoost Banner](https://raw.githubusercontent.com/RiProG-id/RiProG-PlayBoost/refs/heads/main/main/banner.png)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
