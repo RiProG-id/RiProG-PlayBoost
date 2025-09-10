@@ -32,7 +32,7 @@ fi
 chmod +x "$MODPATH"/system/bin/RPB
 rm -f "$MODPATH"/system/bin/RPB_arm
 rm -f "$MODPATH"/system/bin/RPB_arm64
-rm -rf "$MODPATH"/source
+rm -rf "$MODPATH"/CLang
 exec 3>&1 4>&2
 exec >/dev/null 2>&1
 if [ -z "$AXERON" ]; then
