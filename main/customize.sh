@@ -2,6 +2,8 @@
 sleep 2
 ui_print "Author:"
 ui_print "Telegram: @RiProG | Channel: @RiOpSo | Group: @RiOpSoDisc"
+ui_print "Support me on Sociabuzz:"
+ui_print "http://sociabuzz.com/RiProG/tribe"
 sleep 2
 ui_print "Extracting module files"
 architecture=$(getprop ro.product.cpu.abi)
@@ -53,6 +55,12 @@ else
 	rm "$MODPATH/uninstall.sh"
 fi
 exec 1>&3 2>&4
+if [ -z "$AXERON" ]; then
+	ui_print "App list saved to $applist"
+	ui_print "Edit applist manually if you want to add or remove apps."
+else
+	ui_print "You can add or remove apps in AxManager applist"
+fi
 if [ ! -f "$applist" ]; then
 	ui_print "Adding template gamelist to applist"
 	counter=1
@@ -72,9 +80,3 @@ else
 	ui_print "App list already exists. Skipping update."
 fi
 rm "$MODPATH/gamelist.txt"
-if [ -z "$AXERON" ]; then
-	ui_print "App list saved to $applist"
-	ui_print "Edit applist manually if you want to add or remove apps."
-else
-	ui_print "You can add or remove apps in AxManager applist"
-fi
