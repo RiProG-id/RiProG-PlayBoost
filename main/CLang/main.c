@@ -18,7 +18,7 @@ int main() {
   init_app_mode();
 
   show_toast("RiProG PlayBoost: Initialized");
-  sleep(2);
+  sleep(5);
   show_toast("RiProG PlayBoost is now active in the background");
 
   const char *filePath = NULL;
@@ -73,7 +73,7 @@ int main() {
     if (app_found) {
       if (strcmp(prev_window_state, "active") != 0) {
         show_toast("RiProG PlayBoost: App detected, optimizing...");
-        sleep(2);
+        sleep(5);
         show_toast("RiProG PlayBoost: Real-time optimization active");
         strcpy(prev_window_state, "active");
       }
@@ -83,13 +83,13 @@ int main() {
     } else {
       if (strcmp(prev_window_state, "active") == 0) {
         show_toast("RiProG PlayBoost: Real-time optimization stopped");
-        sleep(2);
+        sleep(5);
         show_toast("RiProG PlayBoost: App closed");
       }
       strcpy(prev_window_state, "");
     }
 
-    sleep(2);
+    sleep(5);
   }
 
   return 0;
