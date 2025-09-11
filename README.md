@@ -18,6 +18,12 @@ RiProG-PlayBoost is a utility designed to enhance device performance by intellig
 - **Wide Compatibility:** Supports a variety of rooted and modified Android environments.
 - **Lightweight:** Designed to have a minimal impact on system resources.
 
+## Minor Update (1.2.0 > 1.2.1)
+
+- **Fix:** Correct OS architecture detection.
+- **Format:** Standardize quotation marks.
+- **Applist:** Add default entry if file is missing.
+
 ## Supported Environments
 
 This tool is compatible with the following platforms:
