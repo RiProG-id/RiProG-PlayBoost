@@ -80,3 +80,6 @@ else
 	ui_print "App list already exists. Skipping update."
 fi
 rm "$MODPATH/gamelist.txt"
+if [ ! -f "$applist" ] || [ ! -s "$applist" ]; then
+	echo "com.example.gamelist" >"$applist"
+fi
