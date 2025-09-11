@@ -1,6 +1,7 @@
 #include "cmd.h"
 #include "mode_check.h"
 #include <stdlib.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 void run_cmd(const char *argv[]) {
@@ -8,6 +9,8 @@ void run_cmd(const char *argv[]) {
   if (pid == 0) {
     execvp(argv[0], (char *const *)argv);
     _exit(127);
+  } else if (pid > 0) {
+    waitpid(pid, NULL, WNOHANG);
   }
 }
 
