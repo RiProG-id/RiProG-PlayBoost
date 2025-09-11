@@ -6,18 +6,18 @@ ui_print "Support me on Sociabuzz:"
 ui_print "http://sociabuzz.com/RiProG/tribe"
 sleep 2
 ui_print "Extracting module files"
-architecture=$(getprop ro.product.cpu.abi)
+architecture=$(uname -m)
 if [ -f "$MODPATH/system/bin/RPB" ]; then
 	ui_print "Default binary detected. Skipping architecture detection."
 else
 	ui_print "Detected architecture: $architecture"
 	case "$architecture" in
-	armeabi-v7a | armv8l)
+	armv7l | armv8l)
 		ui_print "Architecture $architecture is supported."
 		ui_print "Installation continues."
 		cp "$MODPATH/system/bin/RPB_arm" "$MODPATH/system/bin/RPB"
 		;;
-	arm64-v8a)
+	aarch64)
 		ui_print "Architecture $architecture is supported."
 		ui_print "Installation continues."
 		cp "$MODPATH/system/bin/RPB_arm64" "$MODPATH/system/bin/RPB"
