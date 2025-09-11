@@ -15,12 +15,12 @@ else
 	armeabi-v7a | armv8l)
 		ui_print "Architecture $architecture is supported."
 		ui_print "Installation continues."
-		cp "$MODPATH"/system/bin/RPB_arm "$MODPATH"/system/bin/RPB
+		cp "$MODPATH/system/bin/RPB_arm" "$MODPATH/system/bin/RPB"
 		;;
 	arm64-v8a)
 		ui_print "Architecture $architecture is supported."
 		ui_print "Installation continues."
-		cp "$MODPATH"/system/bin/RPB_arm64 "$MODPATH"/system/bin/RPB
+		cp "$MODPATH/system/bin/RPB_arm64" "$MODPATH/system/bin/RPB"
 		;;
 	*)
 		ui_print "Architecture $architecture is not supported."
@@ -29,29 +29,29 @@ else
 		;;
 	esac
 fi
-chmod +x "$MODPATH"/system/bin/RPB
-rm -f "$MODPATH"/system/bin/RPB_arm
-rm -f "$MODPATH"/system/bin/RPB_arm64
-rm -rf "$MODPATH"/CLang
+chmod +x "$MODPATH/system/bin/RPB"
+rm -f "$MODPATH/system/bin/RPB_arm"
+rm -f "$MODPATH/system/bin/RPB_arm64"
+rm -rf "$MODPATH/CLang"
 exec 3>&1 4>&2
 exec >/dev/null 2>&1
 if [ -z "$AXERON" ]; then
 	applist=/storage/emulated/0/Android/RPB_applist.txt
-	echo "debug.riprog.RPB=standard" >"$MODPATH"/system.prop
+	echo "debug.riprog.RPB=standard" >"$MODPATH/system.prop"
 	pm disable-user --user 0 com.android.vending
 	if ! pm list packages | grep -q com.riprog.toast; then
-		pm install "$MODPATH"/toast.apk >/dev/null 2>&1
+		pm install "$MODPATH/toast.apk" >/dev/null 2>&1
 		if ! pm list packages | grep -q com.riprog.toast; then
-			cp "$MODPATH"/toast.apk /data/local/tmp >/dev/null 2>&1
+			cp "$MODPATH/toast.apk" /data/local/tmp >/dev/null 2>&1
 			pm install /data/local/tmp/toast.apk >/dev/null 2>&1
 			rm /data/local/tmp/toast.apk
 		fi
-		rm "$MODPATH"/toast.apk
+		rm "$MODPATH/toast.apk"
 	fi
 	pm enable --user 0 com.android.vending
 else
 	applist=/data/local/tmp/AxManager/bin/added_apps.txt
-	echo "debug.riprog.RPB=axeron" >"$MODPATH"/system.prop
+	echo "debug.riprog.RPB=axeron" >"$MODPATH/system.prop"
 	rm "$MODPATH/uninstall.sh"
 fi
 exec 1>&3 2>&4
