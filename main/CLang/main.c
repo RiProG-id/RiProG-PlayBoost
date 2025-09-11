@@ -47,7 +47,7 @@ int main() {
       show_toast("RiProG PlayBoost: App list updated");
     }
 
-    FILE *fp = popen("cmd activity stack list | grep visible=true", "r");
+    FILE *fp = popen("cmd activity stack list", "r");
     char buffer[512] = "";
     int app_found = 0;
     char detected_apps[MAX_APPS][MAX_NAME];
@@ -55,6 +55,8 @@ int main() {
 
     if (fp != NULL) {
       while (fgets(buffer, sizeof(buffer), fp) != NULL) {
+        if (strstr(buffer, "visible=true") == NULL)
+          continue;
         for (int i = 0; i < app_count; i++) {
           if (strstr(buffer, apps[i]) != NULL) {
             app_found = 1;
