@@ -38,7 +38,7 @@ int main() {
   if (stat(filePath, &st) == 0)
     last_mtime = st.st_mtime;
 
-  char prev_window_state[8] = "";
+  int is_optimizing = 0;
 
   while (1) {
     if (stat(filePath, &st) == 0 && st.st_mtime != last_mtime) {
@@ -71,22 +71,22 @@ int main() {
     }
 
     if (app_found) {
-      if (strcmp(prev_window_state, "active") != 0) {
+      if (!is_optimizing) {
         show_toast("RiProG PlayBoost: App detected, optimizing...");
         sleep(5);
         show_toast("RiProG PlayBoost: Real-time optimization active");
-        strcpy(prev_window_state, "active");
+        is_optimizing = 1;
       }
       for (int i = 0; i < detected_count; i++) {
         optimize_app(detected_apps[i]);
       }
     } else {
-      if (strcmp(prev_window_state, "active") == 0) {
+      if (is_optimizing) {
         show_toast("RiProG PlayBoost: Real-time optimization stopped");
         sleep(5);
         show_toast("RiProG PlayBoost: App closed");
+        is_optimizing = 0;
       }
-      strcpy(prev_window_state, "");
     }
 
     sleep(5);
