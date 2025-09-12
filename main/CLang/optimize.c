@@ -3,13 +3,50 @@
 #include <ctype.h>
 #include <dirent.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
-void optimize_app(const char *app) {
-  static char optimized_pids[1024][16];
-  static int optimized_count = 0;
+typedef struct TidNode {
+  char tid[16];
+  struct TidNode *next;
+} TidNode;
 
+static TidNode *optimized_set = NULL;
+
+static int tid_exists(const char *tid) {
+  TidNode *cur = optimized_set;
+  while (cur) {
+    if (strcmp(cur->tid, tid) == 0)
+      return 1;
+    cur = cur->next;
+  }
+  return 0;
+}
+
+static void add_tid(const char *tid) {
+  if (tid_exists(tid))
+    return;
+  TidNode *node = malloc(sizeof(TidNode));
+  if (!node)
+    return;
+  strncpy(node->tid, tid, sizeof(node->tid) - 1);
+  node->tid[sizeof(node->tid) - 1] = '\0';
+  node->next = optimized_set;
+  optimized_set = node;
+}
+
+static void free_tid_set() {
+  TidNode *cur = optimized_set;
+  while (cur) {
+    TidNode *tmp = cur;
+    cur = cur->next;
+    free(tmp);
+  }
+  optimized_set = NULL;
+}
+
+void optimize_app(const char *app) {
   char cmd[128];
   snprintf(cmd, sizeof(cmd), "pgrep -f %s", app);
   FILE *pid_fp = popen(cmd, "r");
@@ -34,24 +71,12 @@ void optimize_app(const char *app) {
         continue;
       if (!isdigit((unsigned char)task_entry->d_name[0]))
         continue;
-
-      int already = 0;
-      for (int i = 0; i < optimized_count; i++) {
-        if (strcmp(optimized_pids[i], task_entry->d_name) == 0) {
-          already = 1;
-          break;
-        }
-      }
-      if (already)
+      if (strcmp(task_entry->d_name, pid) == 0)
         continue;
 
-      if (optimized_count < 1024) {
-        strncpy(optimized_pids[optimized_count], task_entry->d_name,
-                sizeof(optimized_pids[optimized_count]) - 1);
-        optimized_pids[optimized_count]
-                      [sizeof(optimized_pids[optimized_count]) - 1] = '\0';
-        optimized_count++;
-      }
+      if (tid_exists(task_entry->d_name))
+        continue;
+      add_tid(task_entry->d_name);
 
       const char *renice_argv[] = {"renice",           "-n", "-5", "-p",
                                    task_entry->d_name, NULL};
@@ -70,4 +95,6 @@ void optimize_app(const char *app) {
     closedir(task_dir);
   }
   pclose(pid_fp);
+
+  free_tid_set();
 }
