@@ -6,4 +6,4 @@ author=RiProG
 description=Enjoy uninterrupted performance, with processes prioritized automatically.
 banner=banner.png
 axeronPlugin=11000
-updateJson=-https://raw.githubusercontent.com/RiProG-id/RiProG-PlayBoost/refs/heads/main/update.json
+updateJson=https://raw.githubusercontent.com/RiProG-id/RiProG-PlayBoost/refs/heads/main/update.json
