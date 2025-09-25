@@ -90,7 +90,7 @@ void optimize_app(const char *app) {
                                  NULL};
       run_cmd(chrt_argv);
 
-      usleep(50000);
+      usleep(80000);
     }
     closedir(task_dir);
   }
