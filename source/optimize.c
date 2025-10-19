@@ -36,16 +36,6 @@ static void add_tid(const char *tid) {
   optimized_set = node;
 }
 
-static void free_tid_set() {
-  TidNode *cur = optimized_set;
-  while (cur) {
-    TidNode *tmp = cur;
-    cur = cur->next;
-    free(tmp);
-  }
-  optimized_set = NULL;
-}
-
 void optimize_app(const char *app) {
   char cmd[128];
   snprintf(cmd, sizeof(cmd), "pgrep -f %s", app);
@@ -73,20 +63,18 @@ void optimize_app(const char *app) {
         continue;
       if (strcmp(task_entry->d_name, pid) == 0)
         continue;
-
       if (tid_exists(task_entry->d_name))
         continue;
+
       add_tid(task_entry->d_name);
 
-      const char *taskset_argv[] = {"taskset", "-p", "0xFF", task_entry->d_name,
-                                    NULL};
+      const char *taskset_argv[] = {"taskset", "-p", "0xffffffff",
+                                    task_entry->d_name, NULL};
       run_cmd(taskset_argv);
 
-      usleep(80000);
+      sleep(1);
     }
     closedir(task_dir);
   }
   pclose(pid_fp);
-
-  free_tid_set();
 }
