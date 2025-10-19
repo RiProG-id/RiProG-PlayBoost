@@ -33,6 +33,11 @@ chmod +x "$MODPATH/system/bin/RPB"
 rm -f "$MODPATH/system/bin/RPB_arm"
 rm -f "$MODPATH/system/bin/RPB_arm64"
 rm -rf "$MODPATH/CLang"
+if [ -n "$AXERONVER" ] && [ "$AXERONVER" -ge 12000 ]; then
+	ui_print "AxManager version $AXERONVER is not supported (>= 12000)."
+	ui_print "Please downgrade AxManager to a compatible version before installing."
+	exit 1
+fi
 exec 3>&1 4>&2
 exec >/dev/null 2>&1
 if [ -z "$AXERON" ]; then
@@ -61,25 +66,20 @@ if [ -z "$AXERON" ]; then
 else
 	ui_print "You can add or remove apps in AxManager applist"
 fi
-if [ ! -f "$applist" ]; then
-	ui_print "Adding template gamelist to applist"
-	counter=1
-	package_list=$(pm list packages | cut -f 2 -d :)
-	app_list=$(cat "$MODPATH/gamelist.txt")
-	echo "$app_list" | while IFS= read -r applist_line; do
-		line=$(echo "$applist_line" | grep -v " ")
-		if echo "$package_list" | grep -q "$line"; then
-			ui_print "  $counter. $line"
-			counter=$((counter + 1))
-		else
-			sed -i "/$line/d" "$MODPATH/gamelist.txt"
-		fi
-	done
-	cp "$MODPATH/gamelist.txt" "$applist"
-else
-	ui_print "App list already exists. Skipping update."
-fi
+ui_print "Adding template gamelist to applist"
+echo "com.example.gamelist" >"$applist"
+counter=1
+package_list=$(pm list packages | cut -f 2 -d :)
+app_list=$(cat "$MODPATH/gamelist.txt")
+echo "$app_list" | while IFS= read -r applist_line; do
+	line=$(echo "$applist_line" | grep -v " ")
+	if echo "$package_list" | grep -q "$line"; then
+		ui_print "  $counter. $line"
+		counter=$((counter + 1))
+	else
+		sed -i "/$line/d" "$MODPATH/gamelist.txt"
+	fi
+done
+cat "$MODPATH/gamelist.txt" >>"$applist"
+sed -i '$!N; /^\(.*\)\n\1$/!P; D' "$applist"
 rm "$MODPATH/gamelist.txt"
-if [ ! -f "$applist" ] || [ ! -s "$applist" ]; then
-	echo "com.example.gamelist" >"$applist"
-fi
