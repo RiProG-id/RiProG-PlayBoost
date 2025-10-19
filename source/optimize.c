@@ -78,17 +78,9 @@ void optimize_app(const char *app) {
         continue;
       add_tid(task_entry->d_name);
 
-      const char *renice_argv[] = {"renice",           "-n", "-5", "-p",
-                                   task_entry->d_name, NULL};
-      run_cmd(renice_argv);
-
-      const char *ionice_argv[] = {
-          "ionice", "-c", "2", "-n", "2", "-p", task_entry->d_name, NULL};
-      run_cmd(ionice_argv);
-
-      const char *chrt_argv[] = {"chrt", "-r", "-p", "70", task_entry->d_name,
-                                 NULL};
-      run_cmd(chrt_argv);
+      const char *taskset_argv[] = {"taskset", "-p", "0xFF", task_entry->d_name,
+                                    NULL};
+      run_cmd(taskset_argv);
 
       usleep(80000);
     }
