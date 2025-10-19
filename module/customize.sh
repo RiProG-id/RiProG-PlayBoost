@@ -32,7 +32,6 @@ fi
 chmod +x "$MODPATH/system/bin/RPB"
 rm -f "$MODPATH/system/bin/RPB_arm"
 rm -f "$MODPATH/system/bin/RPB_arm64"
-rm -rf "$MODPATH/CLang"
 if [ -n "$AXERONVER" ] && [ "$AXERONVER" -ge 12000 ]; then
 	ui_print "AxManager version $AXERONVER is not supported (>= 12000)."
 	ui_print "Please downgrade AxManager to a compatible version before installing."
