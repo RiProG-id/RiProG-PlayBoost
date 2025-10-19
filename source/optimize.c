@@ -36,6 +36,16 @@ static void add_tid(const char *tid) {
   optimized_set = node;
 }
 
+void clear_optimized_set(void) {
+  TidNode *cur = optimized_set;
+  while (cur) {
+    TidNode *next = cur->next;
+    free(cur);
+    cur = next;
+  }
+  optimized_set = NULL;
+}
+
 void optimize_app(const char *app) {
   char cmd[128];
   snprintf(cmd, sizeof(cmd), "pgrep -f %s", app);

@@ -86,6 +86,7 @@ int main() {
         sleep(10);
         show_toast("RiProG PlayBoost: App closed");
         is_optimizing = 0;
+        clear_optimized_set();
       }
     }
 
