@@ -1,4 +1,4 @@
-## What's New in Version 2.0.0?
+## v2.0.0 Major Update
 
 This major update introduces significant improvements and bug fixes:
 
@@ -17,3 +17,7 @@ This major update introduces significant improvements and bug fixes:
     - Resolved uninstall and bootloop issues.
     - Reorganized the project structure and updated the `build.sh` script.
     - Implemented various other minor enhancements
+
+## v2.0.1 Patch Update
+
+- Fixed an issue where the binary could not run or had the wrong name
