@@ -56,6 +56,19 @@ This tool is compatible with the following platforms:
 2.  Flash the module through your preferred manager (e.g., Magisk, KernelSU).
 3.  Reboot your device.
 
+## Special Instructions for AxManager Downgrade
+
+If you experience issues with AxManager after downgrading, run the following command in the terminal:
+
+```bash
+find /data/local/tmp/* -delete
+```
+
+Then reboot your device.
+
+**Download AxManager:**
+[AxManager v1.1.0](https://github.com/fahrez182/AxManager/releases/download/v1.1.0/AxManager_v1.1.0_11000-release.apk)
+
 ## Credits
 
 This project incorporates components from other open-source repositories. We extend our thanks to their developers:
@@ -71,4 +84,4 @@ For support, questions, or to get involved with the community, please visit:
 
 - **Sociabuzz:** [sociabuzz.com/riprog/tribe](https://sociabuzz.com/riprog/tribe)
 - **Telegram Channel:** [t.me/RiOpSo](https://t.me/RiOpSo)
-- **Telegram Group:** [t.me/RiOpSoDisc](https://t.me/RiOpSoDisc)
+- **Telegram Group:** [t.me/RiOpSoDisc](https.t.me/RiOpSoDisc)
