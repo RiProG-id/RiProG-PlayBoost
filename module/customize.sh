@@ -25,6 +25,7 @@ else
 	*)
 		ui_print "Architecture $architecture is not supported."
 		ui_print "Installation aborted."
+		rm -rf "$MODPATH"
 		exit 1
 		;;
 	esac
@@ -32,10 +33,13 @@ fi
 chmod +x "$MODPATH/system/bin/RPB"
 rm -f "$MODPATH/system/bin/RPB_arm"
 rm -f "$MODPATH/system/bin/RPB_arm64"
-if [ -n "$AXERONVER" ] && [ "$AXERONVER" -ge 12000 ]; then
-	ui_print "AxManager version $AXERONVER is not supported (>= 12000)."
-	ui_print "Please downgrade AxManager to a compatible version before installing."
-	exit 1
+if [ ! -z "$AXERON" ]; then
+	ui_print "----------------------------------------"
+	ui_print "⚠️  WARNING:"
+	ui_print "- AXERON mode detected."
+	ui_print "- This module runs with SU privileges."
+	ui_print "----------------------------------------"
+	sleep 2
 fi
 exec 3>&1 4>&2
 exec >/dev/null 2>&1
@@ -54,7 +58,7 @@ if [ -z "$AXERON" ]; then
 	fi
 	pm enable --user 0 com.android.vending
 else
-	applist=/data/local/tmp/AxManager/bin/added_apps.txt
+	applist=/data/data/com.android.shell/AxManager/bin/added_apps.txt
 	echo "debug.riprog.RPB=axeron" >"$MODPATH/system.prop"
 	rm "$MODPATH/uninstall.sh"
 fi

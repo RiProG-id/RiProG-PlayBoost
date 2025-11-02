@@ -25,7 +25,7 @@ int main() {
   if (app_mode == MODE_STANDARD) {
     filePath = "/storage/emulated/0/Android/RPB_applist.txt";
   } else if (app_mode == MODE_AXERON) {
-    filePath = "/data/local/tmp/AxManager/bin/added_apps.txt";
+    filePath = "/data/data/com.android.shell/AxManager/bin/added_apps.txt";
   } else {
     return 0;
   }
