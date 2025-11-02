@@ -16,29 +16,9 @@ RiProG-PlayBoost is a utility designed to enhance your device's performance by i
 - **Wide Compatibility:** Supports a variety of rooted and modified Android environments.
 - **Lightweight:** Designed to have a minimal impact on system resources.
 
-## v2.0.0 Major Update
+## Changelog
 
-This major update introduces significant improvements and bug fixes:
-
-- **Core Stability:** Fixed random reboots.
-- **Update Mechanism:** Repaired broken `updateJson` and `zipUrl` links.
-- **Performance:**
-    - Implemented thread-based optimization using a TID linked list.
-    - Replaced the legacy priority system with a more efficient high-affinity `taskset`.
-    - Added a 1-second throttle to prevent repetitive `taskset` calls.
-    - Introduced `clear_optimized_set()` to prevent potential memory leaks.
-    - Extended the main loop interval to 10 seconds for improved CPU efficiency.
-- **Compatibility:**
-    - Blocked execution with AxManager versions 12000 and higher.
-    - Prevented duplicate application entries in the game list.
-- **General:**
-    - Resolved uninstall and bootloop issues.
-    - Reorganized the project structure and updated the `build.sh` script.
-    - Implemented various other minor enhancements
-
-## v2.0.1 Patch Update
-
-- Fixed an issue where the binary could not run or had the wrong name
+[View Changelog](https://github.com/RiProG-id/RiProG-PlayBoost/blob/main/changelog.md)
 
 ## Compatibility
 
@@ -47,7 +27,7 @@ This tool is compatible with the following platforms:
 - [Magisk](https://github.com/topjohnwu/magisk)
 - [KernelSU](https://github.com/tiann/KernelSU)
 - [APatch](https://github.com/bmax121/APatch)
-- [AxManager](https://github.com/fahrez182/AxManager) (versions below 12000)
+- [AxManager (SU Mode)](https://github.com
 - Other similar rooted environments.
 
 ## Installation
@@ -55,19 +35,6 @@ This tool is compatible with the following platforms:
 1.  Download the latest release from the [releases page](https://github.com/RiProG-id/RiProG-PlayBoost/releases).
 2.  Flash the module through your preferred manager (e.g., Magisk, KernelSU).
 3.  Reboot your device.
-
-## Special Instructions for AxManager Downgrade
-
-If you experience issues with AxManager after downgrading, run the following command in the terminal:
-
-```bash
-find /data/local/tmp/* -delete
-```
-
-Then reboot your device.
-
-**Download AxManager:**
-[AxManager v1.1.0](https://github.com/fahrez182/AxManager/releases/download/v1.1.0/AxManager_v1.1.0_11000-release.apk)
 
 ## Credits
 

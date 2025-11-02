@@ -21,3 +21,9 @@ This major update introduces significant improvements and bug fixes:
 ## v2.0.1 Patch Update
 
 - Fixed an issue where the binary could not run or had the wrong name
+
+## v2.0.2 Patch Update
+
+- Added support for AxManager version 13000
+- Improved installation method
+- Fixed random reboot issue after uninstall completion
