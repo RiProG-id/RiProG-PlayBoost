@@ -33,13 +33,25 @@ fi
 chmod +x "$MODPATH/system/bin/RPB"
 rm -f "$MODPATH/system/bin/RPB_arm"
 rm -f "$MODPATH/system/bin/RPB_arm64"
-if [ ! -z "$AXERON" ]; then
-	ui_print "----------------------------------------"
-	ui_print "⚠️  WARNING:"
-	ui_print "- AXERON mode detected."
-	ui_print "- This module runs with SU privileges."
-	ui_print "----------------------------------------"
-	sleep 2
+if [ -z "$AXERON" ]; then
+    if [ -d /data/adb/modules/service.d ]; then
+        cp "$MODPATH/BKT.sh" /data/adb/modules/service.d/
+    else
+        ui_print "----------------------------------------"
+        ui_print "⚠️  WARNING:"
+        ui_print "- service.d not supported on this system."
+        ui_print "- If this module is removed,"
+        ui_print "  please uninstall the Toast app manually."
+        ui_print "----------------------------------------"
+        sleep 2
+    fi
+else
+    ui_print "----------------------------------------"
+    ui_print "⚠️  WARNING:"
+    ui_print "- AXERON mode detected."
+    ui_print "- This module runs with SU privileges."
+    ui_print "----------------------------------------"
+    sleep 2
 fi
 exec 3>&1 4>&2
 exec >/dev/null 2>&1
@@ -86,3 +98,4 @@ done
 cat "$MODPATH/gamelist.txt" >>"$applist"
 sed -i '$!N; /^\(.*\)\n\1$/!P; D' "$applist"
 rm "$MODPATH/gamelist.txt"
+rn "$MODPATH/BKT.sh"

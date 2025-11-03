@@ -27,3 +27,8 @@ This major update introduces significant improvements and bug fixes:
 - Added support for AxManager version 13000
 - Improved installation method
 - Fixed random reboot issue after uninstall completion
+
+## v2.0.3 Patch Update
+
+- Switched uninstall.sh to BKT.sh using service.d method  
+- Fixed bootloop issue when module is removed
