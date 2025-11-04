@@ -32,3 +32,8 @@ This major update introduces significant improvements and bug fixes:
 
 - Switched uninstall.sh to BKT.sh using service.d method  
 - Fixed bootloop issue when module is removed
+
+## v2.0.4 Patch Update
+
+- Fixed missing or non-working toast notifications  
+- Fixed Toast app not uninstalling with module/plugin
