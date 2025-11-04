@@ -37,3 +37,8 @@ This major update introduces significant improvements and bug fixes:
 
 - Fixed missing or non-working toast notifications  
 - Fixed Toast app not uninstalling with module/plugin
+
+## v2.0.5 Patch Update
+
+- Fixed code typos
+- Improved applist initialization and file check

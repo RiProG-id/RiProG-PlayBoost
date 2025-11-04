@@ -34,24 +34,24 @@ chmod +x "$MODPATH/system/bin/RPB"
 rm -f "$MODPATH/system/bin/RPB_arm"
 rm -f "$MODPATH/system/bin/RPB_arm64"
 if [ -z "$AXERON" ]; then
-    if [ -d /data/adb/modules/service.d ]; then
-        cp "$MODPATH/BKT.sh" /data/adb/modules/service.d/
-    else
-        ui_print "----------------------------------------"
-        ui_print "⚠️  WARNING:"
-        ui_print "- service.d not supported on this system."
-        ui_print "- If this module is removed,"
-        ui_print "  please uninstall the Toast app manually."
-        ui_print "----------------------------------------"
-        sleep 2
-    fi
+	if [ -d /data/adb/modules/service.d ]; then
+		cp "$MODPATH/BKT.sh" /data/adb/modules/service.d/
+	else
+		ui_print "----------------------------------------"
+		ui_print "⚠️  WARNING:"
+		ui_print "- service.d not supported on this system."
+		ui_print "- If this module is removed,"
+		ui_print "  please uninstall the Toast app manually."
+		ui_print "----------------------------------------"
+		sleep 2
+	fi
 else
-    ui_print "----------------------------------------"
-    ui_print "⚠️  WARNING:"
-    ui_print "- AXERON mode detected."
-    ui_print "- This module runs with SU privileges."
-    ui_print "----------------------------------------"
-    sleep 2
+	ui_print "----------------------------------------"
+	ui_print "⚠️  WARNING:"
+	ui_print "- AXERON mode detected."
+	ui_print "- This module runs with SU privileges."
+	ui_print "----------------------------------------"
+	sleep 2
 fi
 exec 3>&1 4>&2
 exec >/dev/null 2>&1
@@ -81,8 +81,6 @@ if [ -z "$AXERON" ]; then
 else
 	ui_print "You can add or remove apps in AxManager applist"
 fi
-ui_print "Adding template gamelist to applist"
-echo "com.example.gamelist" >"$applist"
 counter=1
 package_list=$(pm list packages | cut -f 2 -d :)
 app_list=$(cat "$MODPATH/gamelist.txt")
@@ -95,7 +93,11 @@ echo "$app_list" | while IFS= read -r applist_line; do
 		sed -i "/$line/d" "$MODPATH/gamelist.txt"
 	fi
 done
+ui_print "Adding template gamelist to applist"
 cat "$MODPATH/gamelist.txt" >>"$applist"
 sed -i '$!N; /^\(.*\)\n\1$/!P; D' "$applist"
+if ! grep -q . "$applist" 2>/dev/null; then
+	echo "com.example.gamelist" >"$applist"
+fi
 rm "$MODPATH/gamelist.txt"
-rn "$MODPATH/BKT.sh"
+rm "$MODPATH/BKT.sh"
