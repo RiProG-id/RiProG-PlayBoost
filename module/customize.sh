@@ -35,7 +35,7 @@ rm -f "$MODPATH/system/bin/RPB_arm"
 rm -f "$MODPATH/system/bin/RPB_arm64"
 if [ -z "$AXERON" ]; then
 	if [ -d /data/adb/modules/service.d ]; then
-		cp "$MODPATH/BKT.sh" /data/adb/modules/service.d/
+		cp "$MODPATH/RPB.sh" /data/adb/modules/service.d/
 	else
 		ui_print "----------------------------------------"
 		ui_print "⚠️  WARNING:"
@@ -100,4 +100,4 @@ if ! grep -q . "$applist" 2>/dev/null; then
 	echo "com.example.gamelist" >"$applist"
 fi
 rm "$MODPATH/gamelist.txt"
-rm "$MODPATH/BKT.sh"
+rm "$MODPATH/RPB.sh"

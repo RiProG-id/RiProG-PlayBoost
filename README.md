@@ -27,7 +27,7 @@ This tool is compatible with the following platforms:
 - [Magisk](https://github.com/topjohnwu/magisk)
 - [KernelSU](https://github.com/tiann/KernelSU)
 - [APatch](https://github.com/bmax121/APatch)
-- [AxManager (SU Mode)](https://github.com
+- [AxManager (SU Mode)](https://github.com/fahrez182/AxManager)6
 - Other similar rooted environments.
 
 ## Installation

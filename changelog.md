@@ -42,3 +42,11 @@ This major update introduces significant improvements and bug fixes:
 
 - Fixed code typos
 - Improved applist initialization and file check
+-
+
+## v2.0.6 Patch Update
+
+- Fixed incomplete uninstall process
+- Fixed Toast not appearing or not being installed
+- Updated game list
+- Fixed code typos
