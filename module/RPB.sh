@@ -2,7 +2,7 @@
 while [ -z "$(getprop sys.boot_completed)" ]; do
 	sleep 5
 done
-if [ ! -d /data/adb/modules/BKT ]; then
+if [ ! -d /data/adb/modules/RPB ]; then
 	BACKDIR="$(pwd)"
 	if pm list packages | grep -q com.riprog.toast; then
 		pm uninstall com.riprog.toast

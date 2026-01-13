@@ -50,3 +50,7 @@ This major update introduces significant improvements and bug fixes:
 - Fixed Toast not appearing or not being installed
 - Updated game list
 - Fixed code typos
+
+## v2.0.7 Patch Update
+
+- Fixed incomplete uninstall process
